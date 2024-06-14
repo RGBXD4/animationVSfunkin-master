@@ -1679,17 +1679,17 @@ class PlayState extends MusicBeatState
 			switch (Paths.formatToSongPath(curSong))
 			{
 				case "unwelcomed":
-					startMP4vid('cutscene_red');
+					startVideo('cutscene_red');
 				case "mastermind":
-					startMP4vid('cutscene_blue');
+					startVideo('cutscene_blue');
 				case "stickin-to-it":
-					startMP4vid('cutscene_green');
+					startVideo('cutscene_green');
 				case "repeater":
-					startMP4vid('cutscene_yellow');
+					startVideo('cutscene_yellow');
 				case "rock-blocks":
-					startMP4vid('cutscene_tsc');
+					startVideo('cutscene_tsc');
 				case 'stick-symphony':
-					startMP4vid('BandCutscene');
+					startVideo('BandCutscene');
 				case 'vengeance':
 					startVideo('makesomenoise_cut');
 				default:
@@ -1947,18 +1947,6 @@ class PlayState extends MusicBeatState
 			add(blackScreen);
 			startCountdown();
 		}
-		
-   function startMP4vid(name:String)
-   {
-	   
-	   var video:MP4Handler = new MP4Handler();
-	   video.playMP4(Paths.video(name));
-	   video.finishCallback = function()
-	   {
-		   LoadingState.loadAndSwitchState(new PlayState());
-	   }
-	   isCutscene = true;
-   }
 
 	var startTimer:FlxTimer;
 	var finishTimer:FlxTimer = null;
@@ -3985,8 +3973,8 @@ class PlayState extends MusicBeatState
 						MusicBeatState.switchState(new CodeStateNew());
 					} else {
 						FlxG.sound.playMusic(Paths.music('nothin'), 0);
-						var video:MP4Handler = new MP4Handler();
-						video.playMP4(Paths.video('cutscene_end'));
+						var video:VideoHandler = new VideoHandler();
+						video.playVideo(Paths.video('cutscene_end'));
 						video.finishCallback = function()
 						{
 							FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
