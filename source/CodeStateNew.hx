@@ -74,8 +74,6 @@ class CodeStateNew extends MusicBeatState
 		codeInput.borderSize = 0.1;
 		add(codeInput);
 		codeInput.callback = function(text, action){
-			if (action == 'enter')
-			{
 				if(controls.ACCEPT && cando) {
 					cando = false;
 					switch(text.toLowerCase())
@@ -133,7 +131,6 @@ class CodeStateNew extends MusicBeatState
 						cando = true;
 					});
 				}
-			}
 		}
 		
     	badSymbol = new FlxText(0, 0, 0, "You can't enter a symbol with this name", 32);
