@@ -153,6 +153,8 @@
 
 	<!-- _________________________________ Custom _______________________________ -->
 
+	<haxedef name="no-deprecation-warnings"/>
+
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 	
 	<icon path="art/icon16.png" size='16'/>
