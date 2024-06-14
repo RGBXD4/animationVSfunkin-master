@@ -15,7 +15,9 @@ import lime.utils.UInt8Array;
  * @author Tommy S
  */
 //
+#if VIDEOS_ALLOWED
 @:buildXml("<include name='${haxelib:hxCodec}/src/vlc/LibVLCBuild.xml' />")
+#end
 @:include("LibVLC.h")
 @:unreflective
 @:keep
