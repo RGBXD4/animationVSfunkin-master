@@ -1,9 +1,10 @@
 import flixel.FlxG;
 import flixel.FlxSprite;
+import VideoHandler;
 
 class CutsceneState extends MusicBeatState
 {
-	public var handler:MP4Handler;
+	public var handler:VideoHandler;
 
 	public var path:String = "";
 
@@ -15,14 +16,13 @@ class CutsceneState extends MusicBeatState
 
 	public function load()
 	{
-		handler = new MP4Handler();
+		handler = new VideoHandler();
 	}
 
 	public override function update(elapsed)
 	{
 		if (FlxG.keys.justPressed.ENTER)
 		{
-			handler.kill();
 			MusicBeatState.switchState(new PlayState());
 		}
 		super.update(elapsed);
@@ -30,7 +30,7 @@ class CutsceneState extends MusicBeatState
 
 	public override function create()
 	{
-		handler.playMP4(Paths.video(path));
+		handler.playVideo(Paths.video(path));
 		handler.finishCallback = function()
 		{
 			MusicBeatState.switchState(new PlayState());
