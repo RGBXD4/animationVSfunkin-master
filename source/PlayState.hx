@@ -86,6 +86,9 @@ import flash.system.Capabilities;
 import sys.FileSystem;
 #end
 
+import VideoHandler;
+import VideoSprite;
+
 using StringTools;
 
 class PlayState extends MusicBeatState
@@ -1001,8 +1004,8 @@ class PlayState extends MusicBeatState
 					animatedbg.scale.set(1.5, 1.5);
 					animatedbg.screenCenter();
 				} else {
-					var video:MP4Handler2 = new MP4Handler2();
-					video.playMP42(Paths.video('animatedbg'), null, animatedbg);
+					var video:VideoSprite = new VideoSprite();
+					video.playVideo(Paths.video('animatedbg'));
 				}
 				
 				add(animatedbg);
@@ -1046,8 +1049,11 @@ class PlayState extends MusicBeatState
 					fallenbg.scale.set(1.5, 1.5);
 					fallenbg.screenCenter();
 				} else {
-					var video:MP4Handler2 = new MP4Handler2();
-					video.playMP42(Paths.video('fallingbg'), null, fallenbg);
+					var video:VideoSprite = new VideoSprite(-500, -500);
+					video.playVideo(Paths.video('fallingbg'));
+	                                video.scale.set(2.7, 2.7);
+					//video.screenCenter();
+	                                add(video);
 				}
 				
 				add(fallenbg);
@@ -1866,54 +1872,45 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	public function startVideo(name:String):Void {
-		#if VIDEOS_ALLOWED
-		var foundFile:Bool = false;
-		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
+        public function startVideo(name:String):Void
+	{
+	   	#if VIDEOS_ALLOWED
+		inCutscene = true;
+
+		var filepath:String = Paths.video(name);
 		#if sys
-		if(FileSystem.exists(fileName)) {
-			foundFile = true;
-		}
+		if(!FileSystem.exists(filepath))
+		#else
+		if(!OpenFlAssets.exists(filepath))
 		#end
-
-		if(!foundFile) {
-			fileName = Paths.video(name);
-			#if sys
-			if(FileSystem.exists(fileName)) {
-			#else
-			if(OpenFlAssets.exists(fileName)) {
-			#end
-				foundFile = true;
-			}
-		}
-
-		if(foundFile) {
-			inCutscene = true;
-			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-			bg.scrollFactor.set();
-			bg.cameras = [camHUD];
-			add(bg);
-
-			(new FlxVideo(fileName)).finishCallback = function() {
-				remove(bg);
-				if(endingSong) {
-					endSong();
-				} else {
-					startCountdown();
-					creditthing();
-				}
-			}
+		{
+			FlxG.log.warn('Couldnt find video file: ' + name);
+			startAndEnd();
 			return;
-		} else {
-			FlxG.log.warn('Couldnt find video file: ' + fileName);
 		}
+
+		var video:VideoHandler = new VideoHandler();
+		video.playVideo(filepath);
+		video.finishCallback = function()
+		{
+			startAndEnd();
+			return;
+		}
+		#else
+		FlxG.log.warn('Platform not supported!');
+		startAndEnd();
+		return;
 		#end
-		if(endingSong) {
-			endSong();
-		} else {
-			startCountdown();
-		}
 	}
+
+	function startAndEnd()
+	{
+		if(endingSong)
+			endSong();
+		else
+			startCountdown();
+	}
+
 
 	var dialogueCount:Int = 0;
 	//You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
