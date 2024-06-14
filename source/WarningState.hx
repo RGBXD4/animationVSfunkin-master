@@ -16,7 +16,7 @@ class WarningState extends MusicBeatState
 {
 	public static var leftState:Bool = false;
 
-	var video:MP4Handler = new MP4Handler();
+	var video:VideoHandler = new VideoHandler();
 	var warnText:FlxText;
 	var isCutscene:Bool = false;
 	var thesongnamename = '';
@@ -129,7 +129,7 @@ class WarningState extends MusicBeatState
    function startMP4vid(name:String)
    {
 	   
-	   var video:MP4Handler = new MP4Handler();
+	   var video:VideoHandler = new VideoHandler();
 	   video.playMP4(Paths.video(name));
 	   video.finishCallback = function()
 	   {
