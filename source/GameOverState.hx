@@ -154,6 +154,11 @@ class GameOverState extends MusicBeatSubstate
 		add(camFollowPos);
 
 >>>>>>> parent of 4492a8b (Merge branch 'main' of https://github.com/Noam-lol/Animation-Vs-Fnf-sourceCode)
+		
+		#if android
+                addVirtualPad(NONE, A_B);
+                addVirtualPadCamera(false);
+                #end
 		super.create();
 	}
 
