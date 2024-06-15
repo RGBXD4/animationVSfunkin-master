@@ -20,6 +20,7 @@ import flixel.util.FlxSave;
 import haxe.Json;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
@@ -128,6 +129,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		changeSelection();
 		reloadCheckboxes();
+	
+	        #if android
+                addVirtualPad(LEFT_FULL, A_B_C);
+                addVirtualPadCamera(false);
+                #end
 	}
 
 	public function addOption(option:Option) {
@@ -150,7 +156,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
-			close();
+			#if android
+                        FlxTransitionableState.skipNextTransOut = true;
+			FlxG.resetState();
+                        #else
+                        close();
+                        #end
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
