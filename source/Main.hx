@@ -69,10 +69,6 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
-		#if !debug
-		initialState = TitleState;
-		#end
-
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
 
