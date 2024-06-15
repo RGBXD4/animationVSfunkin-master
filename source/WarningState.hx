@@ -38,7 +38,7 @@ class WarningState extends MusicBeatState
 		if(thesongnamename != 'vengeance') {
 			text = "Hey there person man/woman   \n
 			This song contains an animated background and it may cause a headache,\n
-			Press Esc if you want to disable it or press Enter if you don't wanna disable it,\n
+			Press B if you want to disable it or press A if you don't wanna disable it,\n
 			\n
 			Hope you enjoy this song";
 		}
@@ -46,6 +46,10 @@ class WarningState extends MusicBeatState
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
+	
+	        #if android
+                addVirtualPad(NONE, A_B);
+                #end
 	}
 
 	override function update(elapsed:Float)
