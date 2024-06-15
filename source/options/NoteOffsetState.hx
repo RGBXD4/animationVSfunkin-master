@@ -9,6 +9,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.ui.FlxBar;
@@ -200,6 +201,11 @@ class NoteOffsetState extends MusicBeatState
 
 		FlxG.camera.zoom = 0.7;
 
+		#if android
+                addVirtualPad(LEFT_FULL, A_B_C);
+                addVirtualPadCamera(false);
+                #end
+		
 		super.create();
 	}
 
@@ -325,7 +331,7 @@ class NoteOffsetState extends MusicBeatState
 				}
 			}
 
-			if(controls.RESET)
+			if(controls.RESET #if android || virtualPad.buttonC.justPressed #end)
 			{
 				for (i in 0...ClientPrefs.comboOffset.length)
 				{
@@ -363,7 +369,7 @@ class NoteOffsetState extends MusicBeatState
 				updateNoteDelay();
 			}
 
-			if(controls.RESET)
+			if(controls.RESET #if android || virtualPad.buttonC.justPressed #end)
 			{
 				holdTime = 0;
 				barPercent = 0;
