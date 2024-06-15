@@ -118,6 +118,11 @@ class HintState extends MusicBeatState
         chosenText.cameras = [camChosen];
 
         trace('hints lol');
+
+	#if android
+        addVirtualPad(NONE, A);
+        addVirtualPadCamera(false);
+        #end
     }
 
     override function update(elapsed:Float)
