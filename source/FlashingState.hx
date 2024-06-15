@@ -27,18 +27,22 @@ class FlashingState extends MusicBeatState
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Hey there person man/woman   \n
 			Some songs contains some flashing and it may cause a headache,\n
-			Press Esc if you want to disable it or press Enter if you don't wanna disable it,\n
+			Press B if you want to disable it or press A if you don't wanna disable it,\n
 			\n
 			Hope you enjoy this mod.",
 			32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
+	
+	        #if android
+		addVirtualPad(NONE, A_B);
+		#end
 	}
 
 	override function update(elapsed:Float)
 	{
-		if (FlxG.keys.justPressed.ENTER) {
+		if (controls.ACCEPT) {
 			var save:FlxSave = new FlxSave();
 			save.bind('avfnf', 'ninjamuffin99');
 			save.data.flashinglol = true;
@@ -50,7 +54,7 @@ class FlashingState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('cancelMenu'));
             FlxTween.tween(warnText, {alpha: 0}, 1, {
             });
-		} else if (FlxG.keys.justPressed.ESCAPE) {
+		} else if (controls.BACK) {
 			var save:FlxSave = new FlxSave();
 			save.bind('avfnf', 'ninjamuffin99');
 			save.data.flashinglol = true;
