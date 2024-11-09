@@ -109,7 +109,7 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		#if android
-                addVirtualPad(UP_DOWN, A_B_X_Y);
+                addVirtualPad(UP_DOWN, A_B);
                 #end
 		
 		super.create();
@@ -134,18 +134,6 @@ class OptionsState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 		}
-
-		#if mobile
-	        if (virtualPad.buttonX.justPressed)
-		{
-			removeVirtualPad();
-			openSubState(new mobile.MobileControlsSubState());
-		}
-		if (virtualPad.buttonY.justPressed) {
-			removeVirtualPad();
-			openSubState(new mobile.AndroidSettingsSubState());
-		}
-	        #end
 		
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);
