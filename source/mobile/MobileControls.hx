@@ -21,7 +21,6 @@ class MobileControls extends FlxSpriteGroup
 
 				hitbox = new FlxHitbox();
 				add(hitbox);
-		}
 	}
 
 	override public function destroy():Void
