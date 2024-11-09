@@ -3549,7 +3549,7 @@ class PlayState extends MusicBeatState
 
 					// YELLOW
 
-					case 'Yellow Band Sing HIT 1' | '1':
+					case 'Yellow Band Sing HIT 1' | '13':
 						yellow.animation.play('hit 1', true);
 						yellow.offset.set(-115,2);
 						new FlxTimer().start(1, function(tmr:FlxTimer) {
@@ -3558,7 +3558,7 @@ class PlayState extends MusicBeatState
 						});
 						trace("it workie");
 
-					case 'Yellow Band Sing HIT 2' | '2':
+					case 'Yellow Band Sing HIT 2' | '14':
 						yellow.animation.play('hit 2', true);
 						yellow.offset.set(-3,0);
 						new FlxTimer().start(1, function(tmr:FlxTimer) {
